@@ -1,4 +1,4 @@
-from flask import Flask , render_template
+from flask import Flask, render_template
 
 
 
@@ -8,6 +8,10 @@ app.config.from_pyfile('config.py')
 @app.route('/')
 def entry():
     return render_template('index.html' , active='index')
+
+@app.route('/product')
+def product():
+    return render_template('product.html')
 
 # home route
 @app.route("/home")
