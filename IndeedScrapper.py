@@ -44,15 +44,15 @@ class IndeedScrapper:
         except AttributeError:
             self.nextUrl = ''
 
-        print('now fetching job types')
-        jobTypeTasks = []
-        for job in jobs:
-            jobTypeTasks.append(self.fetchJobType(job))
+        # print('now fetching job types')
+        # jobTypeTasks = []
+        # for job in jobs:
+        #     jobTypeTasks.append(self.fetchJobType(job))
 
-        asyncio.set_event_loop(asyncio.new_event_loop())
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(asyncio.gather(*jobTypeTasks))
-        print('completed fetching job types')
+        # asyncio.set_event_loop(asyncio.new_event_loop())
+        # loop = asyncio.get_event_loop()
+        # loop.run_until_complete(asyncio.gather(*jobTypeTasks))
+        # print('completed fetching job types')
 
         return jobs
 

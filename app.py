@@ -33,6 +33,25 @@ def contact():
     return render_template('contact.html', active='contact')
 
 
+selectedLocation = ""
+indeedScrapper = ""
+@app.route('/location/<loc>')
+def location(loc):
+    global selectedLocation
+    selectedLocation = loc
+    indeedScrapper: IndeedScrapper = IndeedScrapper("", loc)
+    sindhjobs = indeedScrapper.scrape(5)
+    print(len(sindhjobs))
+    return render_template('index.html', active='index' , selectedjobs = sindhjobs , recentJobs=recentJobs)
+
+
+@app.route("/loadmore")
+def loadmore():
+    global indeedScrapper
+    selectedJobs = indeedScrapper.loadMore()
+    print(len(selectedJobs))
+    return render_template('index.html', active='index' , selectedjobs = selectedJobs , recentJobs=recentJobs)
+
 # home route
 @app.route("/home")
 def home():
