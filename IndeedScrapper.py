@@ -9,12 +9,17 @@ from Job import Job
 
 
 class IndeedScrapper:
-    def __init__(self, jobTitle, location):
-        self.jobTitle = jobTitle
-        self.location = location
+    currentUrl = ''
+    nextUrl = ''
+    jobTitle = ''
+    location = ''
 
-        self.currentUrl = self.getUrl()
-        self.nextUrl = ''
+    @staticmethod
+    def set(title, location):
+        IndeedScrapper.jobTitle = title
+        IndeedScrapper.location = location
+
+        IndeedScrapper.currentUrl = IndeedScrapper.getUrl(title, location)
 
     @staticmethod
     async def fetchJobType(job):
@@ -26,57 +31,60 @@ class IndeedScrapper:
                 except AttributeError:
                     job.jobType = ''
 
-    def scrape(self, count=None) -> list[Job]:
+    @staticmethod
+    def recent(count=3):
+        url = IndeedScrapper.getUrl('', 'any')
+        return IndeedScrapper._scrape(count, url)
+
+    @staticmethod
+    def scrape() -> list[Job]:
+        return IndeedScrapper._scrape(None, IndeedScrapper.currentUrl, True)
+
+    @staticmethod
+    def _scrape(count, url, storeNextUrl=False) -> list[Job]:
+        print("scraping from: ", url)
         jobs: list[Job] = []
 
-        response = requests.get(self.currentUrl)
+        response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
         rawJobs = soup.find_all('div', 'jobsearch-SerpJobCard', limit=count)
 
         print('parsing')
         for rawJob in rawJobs:
-            jobs.append(self.parseRawJob(rawJob))
+            jobs.append(IndeedScrapper.parseRawJob(rawJob))
         print('parsing done')
 
-        #         time.sleep(4)
-        try:
-            self.nextUrl = 'https://pk.indeed.com' + soup.find('a', {'aria-label': 'Next'}).get('href')
-        except AttributeError:
-            self.nextUrl = ''
-
-        # print('now fetching job types')
-        # jobTypeTasks = []
-        # for job in jobs:
-        #     jobTypeTasks.append(self.fetchJobType(job))
-
-        # asyncio.set_event_loop(asyncio.new_event_loop())
-        # loop = asyncio.get_event_loop()
-        # loop.run_until_complete(asyncio.gather(*jobTypeTasks))
-        # print('completed fetching job types')
+        if storeNextUrl:
+            try:
+                IndeedScrapper.nextUrl = 'https://pk.indeed.com' + soup.find('a', {'aria-label': 'Next'}).get('href')
+            except AttributeError:
+                IndeedScrapper.nextUrl = ''
 
         return jobs
 
-    def getUrl(self):
+    @staticmethod
+    def getUrl(title, location):
         baseUrl = "https://pk.indeed.com/jobs?q={}&l={}"
-        return baseUrl.format(self.jobTitle, self.location)
+        return baseUrl.format(title, location)
 
     @staticmethod
     def getDetailsUrl(company, location, jk):
         detailsBaseUrl = "https://pk.indeed.com/viewjob?cmp={}&t={}&jk={}"
         return detailsBaseUrl.format(company, location, jk)
 
-    def parseRawJob(self, rawJob: Tag) -> Job:
+    @staticmethod
+    def parseRawJob(rawJob: Tag) -> Job:
         title = rawJob.find('h2', 'title').a.get('title')
-        company = self.safeFindHtmlTag(rawJob, 'span', 'company')
-        location = self.safeFindHtmlTag(rawJob, 'span', 'location')
+        company = IndeedScrapper.safeFindHtmlTag(rawJob, 'span', 'company')
+        location = IndeedScrapper.safeFindHtmlTag(rawJob, 'span', 'location')
 
         # this fetches value of data-jk property of the top level tag. It is used to construct a url for details of
         # this job
         jk = rawJob.get('data-jk')
-        url = self.getDetailsUrl(company, location, jk)
+        url = IndeedScrapper.getDetailsUrl(company, location, jk)
 
-        salary = self.safeFindHtmlTag(rawJob, 'span', 'salaryText')
-        requirements = self.safeFindHtmlTag(rawJob, 'div', 'jobCardReqItem')
+        salary = IndeedScrapper.safeFindHtmlTag(rawJob, 'span', 'salaryText')
+        requirements = IndeedScrapper.safeFindHtmlTag(rawJob, 'div', 'jobCardReqItem')
         summary = rawJob.find('div', 'summary').text.strip()
 
         return Job(title=title, company=company, location=location, salary=salary, requirement=requirements,
@@ -88,6 +96,7 @@ class IndeedScrapper:
         element = job.find(tagToFind, className)
         return '' if element is None else element.text.strip()
 
-    def loadMore(self) -> list[Job]:
-        self.currentUrl = self.nextUrl
-        return self.scrape()
+    @staticmethod
+    def loadMore() -> list[Job]:
+        IndeedScrapper.currentUrl = IndeedScrapper.nextUrl
+        return IndeedScrapper.scrape()
