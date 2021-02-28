@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 from IndeedScrapper import IndeedScrapper
 from Job import Job
@@ -16,11 +16,13 @@ def entry():
     global jobs
 
     if len(recentJobs) == 0:
-        indeedScrapper: IndeedScrapper = IndeedScrapper("Android Developer", '')
-        recentJobs = indeedScrapper.scrape()
-        print(len(recentJobs))
+        recentJobs = IndeedScrapper.recent()
 
-    return render_template('index.html', active='index', jobs=jobs, recentJobs=recentJobs)
+    if len(jobs) == 0:
+        IndeedScrapper.set('', 'any')
+        jobs = IndeedScrapper.scrape()
+
+    return render_template('index.html', active='index', selectedjobs=jobs, recentJobs=recentJobs)
 
 
 @app.route('/about')
@@ -35,22 +37,37 @@ def contact():
 
 selectedLocation = ""
 indeedScrapper = ""
+
+
 @app.route('/location/<loc>')
 def location(loc):
-    global selectedLocation
-    selectedLocation = loc
-    indeedScrapper: IndeedScrapper = IndeedScrapper("", loc)
-    sindhjobs = indeedScrapper.scrape(5)
-    print(len(sindhjobs))
-    return render_template('index.html', active='index' , selectedjobs = sindhjobs , recentJobs=recentJobs)
+    # global selectedLocation
+    global recentJobs
+    global jobs
+
+    # selectedLocation = loc
+    IndeedScrapper.set(IndeedScrapper.jobTitle, loc)
+    jobs = IndeedScrapper.scrape()
+
+    return render_template('index.html', active='index', selectedjobs=jobs, recentJobs=recentJobs)
+
+
+@app.route('/title', methods=['POST'])
+def title():
+    searchTitle = request.form['search-product']
+    IndeedScrapper.set(searchTitle, IndeedScrapper.location)
+    global jobs
+    jobs = IndeedScrapper.scrape()
+
+    return render_template('index.html', active='index', selectedjobs=jobs, recentJobs=recentJobs)
 
 
 @app.route("/loadmore")
 def loadmore():
-    global indeedScrapper
-    selectedJobs = indeedScrapper.loadMore()
-    print(len(selectedJobs))
-    return render_template('index.html', active='index' , selectedjobs = selectedJobs , recentJobs=recentJobs)
+    global jobs
+    jobs = IndeedScrapper.loadMore()
+    return render_template('index.html', active='index', selectedjobs=jobs, recentJobs=recentJobs)
+
 
 # home route
 @app.route("/home")

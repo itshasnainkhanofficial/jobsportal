@@ -90,116 +90,90 @@
         <div class="col-md-12">
             <div class="py-5">
                 <h3 class="ltext-103 cl5">
-                    ALL JOBS
+                    Recent Jobs
                 </h3>
             </div>
         </div>
-		{% for job in recentJobs %}
+        {% for job in recentJobs %}
         <div class="col-md-4">
             <div class="product-item">
-                <a href="job-details.html"><img src="assets/images/product-1-370x270.jpg" alt=""></a>
                 <div class="down-content">
-                    <a href="job-details.html"><h4>{{job.title}}</h4></a>
+                    <a href="{{job.jobLink}}"><h4>{{job.title}}</h4></a>
+
 
                     <h6>{{job.salary}}</h6>
 
-<!--                    <h4><small><i class="fa fa-briefcase"></i> Medical / Health Jobs <br> <strong><i-->
-<!--                            class="fa fa-building"></i> {{job.company}}</strong></small></h4>-->
+                    <!--                    <h4><small><i class="fa fa-briefcase"></i> Medical / Health Jobs <br> <strong><i-->
+                    <!--                            class="fa fa-building"></i> {{job.company}}</strong></small></h4>-->
                     <h4><small><strong><i class="fa fa-building"></i> {{job.company}}</strong></small></h4>
 
                     <small>
-<!--                        <strong title="Posted on"><i class="fa fa-calendar"></i> 15-06-2020</strong> &nbsp;&nbsp;&nbsp;&nbsp;-->
+                        <!--                        <strong title="Posted on"><i class="fa fa-calendar"></i> 15-06-2020</strong> &nbsp;&nbsp;&nbsp;&nbsp;-->
                         <strong title="Type"><i class="fa fa-file"></i> {{job.type}}</strong> &nbsp;&nbsp;&nbsp;&nbsp;
                         <strong title="Location"><i class="fa fa-map-marker"></i> {{job.location}}</strong>
                     </small>
                 </div>
             </div>
         </div>
-		{%endfor%}
-        <div class="col-md-4">
-            <div class="product-item">
-                <a href="job-details.html"><img src="assets/images/product-2-370x270.jpg" alt=""></a>
-                <div class="down-content">
-                    <a href="job-details.html"><h4>Lorem ipsum dolor sit amet</h4></a>
+        {%endfor%}
+<!--        <div class="col-md-4">-->
+<!--            <div class="product-item">-->
+<!--                <a href="job-details.html"><img src="assets/images/product-2-370x270.jpg" alt=""></a>-->
+<!--                <div class="down-content">-->
+<!--                    <a href="job-details.html"><h4>Lorem ipsum dolor sit amet</h4></a>-->
 
-                    <h6>$60 000</h6>
+<!--                    <h6>$60 000</h6>-->
 
-                    <h4><small><i class="fa fa-briefcase"></i> Medical / Health Jobs <br> <strong><i
-                            class="fa fa-building"></i> BMI Kings Park Hospital</strong></small></h4>
+<!--                    <h4><small><i class="fa fa-briefcase"></i> Medical / Health Jobs <br> <strong><i-->
+<!--                            class="fa fa-building"></i> BMI Kings Park Hospital</strong></small></h4>-->
 
-                    <small>
-                        <strong title="Posted on"><i class="fa fa-calendar"></i> 15-06-2020</strong> &nbsp;&nbsp;&nbsp;&nbsp;
-                        <strong title="Type"><i class="fa fa-file"></i> Contract</strong> &nbsp;&nbsp;&nbsp;&nbsp;
-                        <strong title="Location"><i class="fa fa-map-marker"></i> London</strong>
-                    </small>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="product-item">
-                <a href="job-details.html"><img src="assets/images/product-3-370x270.jpg" alt=""></a>
-                <div class="down-content">
-                    <a href="job-details.html"><h4>Lorem ipsum dolor sit amet</h4></a>
-
-                    <h6>$60 000</h6>
-
-                    <h4><small><i class="fa fa-briefcase"></i> Medical / Health Jobs <br> <strong><i
-                            class="fa fa-building"></i> BMI Kings Park Hospital</strong></small></h4>
-
-                    <small>
-                        <strong title="Posted on"><i class="fa fa-calendar"></i> 15-06-2020</strong> &nbsp;&nbsp;&nbsp;&nbsp;
-                        <strong title="Type"><i class="fa fa-file"></i> Contract</strong> &nbsp;&nbsp;&nbsp;&nbsp;
-                        <strong title="Location"><i class="fa fa-map-marker"></i> London</strong>
-                    </small>
-                </div>
-            </div>
-        </div>
+<!--                    <small>-->
+<!--                        <strong title="Posted on"><i class="fa fa-calendar"></i> 15-06-2020</strong> &nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--                        <strong title="Type"><i class="fa fa-file"></i> Contract</strong> &nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--                        <strong title="Location"><i class="fa fa-map-marker"></i> London</strong>-->
+<!--                    </small>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
-    <!-- Pagination -->
-    <div class="flex-c-m flex-w w-full p-t-38">
-        <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
-            1
-        </a>
 
-        <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
-            2
-        </a>
-    </div>
 </div>
 <!-- Product -->
 <section class="bg0 p-t-23 p-b-140">
     <div class="container">
         <div class="p-b-10">
             <h3 class="ltext-103 cl5">
-                Product Overview
+                Search
             </h3>
         </div>
 
         <div class="flex-w flex-sb-m p-b-52">
             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-                    All Location
+                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                    <a href="{{ url_for('location' , loc = 'any') }}">All</a>
+
                 </button>
 
-                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women" href="{{ url_for('location' , loc = 'sindh') }}">
-                    Sindh
+                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                    <a href="{{ url_for('location' , loc = 'sindh') }}">Sindh</a>
+
                 </button>
 
-                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
-                    Men
+                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                    <a href="{{ url_for('location' , loc = 'karachi') }}">karachi</a>
+
+                </button>
+                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                    <a href="{{ url_for('location' , loc = 'Lahore') }}">Lahore</a>
+
+                </button>
+                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                    <a href="{{ url_for('location' , loc = 'Punjab') }}">Punjab</a>
+                </button>
+                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
+                    <a href="{{ url_for('location' , loc = 'Peshawar') }}">Peshawar</a>
                 </button>
 
-                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
-                    Bag
-                </button>
-
-                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".shoes">
-                    Shoes
-                </button>
-
-                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".watches">
-                    Watches
-                </button>
             </div>
 
             <div class="flex-w flex-c-m m-tb-10">
@@ -217,17 +191,18 @@
             </div>
 
             <!-- Search product -->
-            <div class="dis-none panel-search w-full p-t-10 p-b-15">
-                <div class="bor8 dis-flex p-l-15">
-                    <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
-                        <i class="zmdi zmdi-search"></i>
-                    </button>
+            <form action="/title" method="post" class="decor">
+                <div class="dis-none panel-search w-full p-t-10 p-b-15">
+                    <div class="bor8 dis-flex p-l-15">
+                        <button type="submit" class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+                            <i class="zmdi zmdi-search"></i>
+                        </button>
 
-                    <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product"
-                           placeholder="Search">
+                        <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product"
+                               placeholder="Search">
+                    </div>
                 </div>
-            </div>
-
+            </form>
             <!-- Filter -->
             <div class="dis-none panel-filter w-full p-t-10">
                 <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
@@ -423,54 +398,105 @@
             </div>
         </div>
 
-        <div class="row isotope-grid">
-            {% if selectedjobs %}
+        <!--        <div class="row isotope-grid">-->
+        <!--            {% if selectedjobs %}-->
+        <!--            {% for job in selectedjobs %}-->
+
+        <!--            <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">-->
+        <!--                &lt;!&ndash; Block2 &ndash;&gt;-->
+        <!--                <div class="block2">-->
+        <!--                    <div class="block2-pic hov-img0">-->
+        <!--                        <img src="{{url_for('static',filename='images/product-01.jpg')}}" alt="IMG-PRODUCT">-->
+
+        <!--                        <a href="#"-->
+        <!--                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">-->
+        <!--                            Quick View-->
+        <!--                        </a>-->
+        <!--                    </div>-->
+
+        <!--                    <div class="block2-txt flex-w flex-t p-t-14">-->
+        <!--                        <div class="block2-txt-child1 flex-col-l ">-->
+        <!--                            <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">-->
+        <!--                                {{job.title}}-->
+        <!--                            </a>-->
+
+        <!--                            <span class="stext-105 cl3">-->
+        <!--                                {{job.salary}}-->
+        <!--								</span>-->
+        <!--                        </div>-->
+
+        <!--                        <div class="block2-txt-child2 flex-r p-t-3">-->
+        <!--                            <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">-->
+        <!--                                <img class="icon-heart1 dis-block trans-04"-->
+        <!--                                     src="{{url_for('static',filename='images/icons/icon-heart-01.png')}}" alt="ICON">-->
+        <!--                                <img class="icon-heart2 dis-block trans-04 ab-t-l"-->
+        <!--                                     src="{{url_for('static',filename='images/icons/icon-heart-02.png')}}" alt="ICON">-->
+        <!--                            </a>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--            {% endfor %}-->
+        <!--            {% else %}-->
+        <!--            <h2>No job available</h2>-->
+        <!--            {% endif %}-->
+
+        <!--        </div>-->
+
+        <div class="row">
+            <!--            <div class="col-md-12">-->
+            <!--                <div class="py-5">-->
+            <!--                    <h3 class="ltext-103 cl5">-->
+            <!--                        ALL JOBS-->
+            <!--                    </h3>-->
+            <!--                </div>-->
+            <!--            </div>-->
             {% for job in selectedjobs %}
+            <div class="col-md-4">
+                <div class="product-item">
+                    <div class="down-content">
+                        <a href="{{job.jobLink}}"><h4>{{job.title}}</h4></a>
 
-            <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-                <!-- Block2 -->
-                <div class="block2">
-                    <div class="block2-pic hov-img0">
-                        <img src="{{url_for('static',filename='images/product-01.jpg')}}" alt="IMG-PRODUCT">
+                        <h6>{{job.salary}}</h6>
 
-                        <a href="#"
-                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                            Quick View
-                        </a>
-                    </div>
+                        <!--                    <h4><small><i class="fa fa-briefcase"></i> Medical / Health Jobs <br> <strong><i-->
+                        <!--                            class="fa fa-building"></i> {{job.company}}</strong></small></h4>-->
+                        <h4><small><strong><i class="fa fa-building"></i> {{job.company}}</strong></small></h4>
 
-                    <div class="block2-txt flex-w flex-t p-t-14">
-                        <div class="block2-txt-child1 flex-col-l ">
-                            <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                            {{job.title}}
-                            </a>
-
-                            <span class="stext-105 cl3">
-                                {{job.salary}}
-								</span>
-                        </div>
-
-                        <div class="block2-txt-child2 flex-r p-t-3">
-                            <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                <img class="icon-heart1 dis-block trans-04"
-                                     src="{{url_for('static',filename='images/icons/icon-heart-01.png')}}" alt="ICON">
-                                <img class="icon-heart2 dis-block trans-04 ab-t-l"
-                                     src="{{url_for('static',filename='images/icons/icon-heart-02.png')}}" alt="ICON">
-                            </a>
-                        </div>
+                        <small>
+                            <!--                        <strong title="Posted on"><i class="fa fa-calendar"></i> 15-06-2020</strong> &nbsp;&nbsp;&nbsp;&nbsp;-->
+                            <strong title="Type"><i class="fa fa-file"></i> {{job.type}}</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+                            <strong title="Location"><i class="fa fa-map-marker"></i> {{job.location}}</strong>
+                        </small>
                     </div>
                 </div>
             </div>
-            {% endfor %}
-            {% else %}
-            <h2>No job available</h2>
-            {% endif %}
+            {%endfor%}
+<!--            <div class="col-md-4">-->
+<!--                <div class="product-item">-->
+<!--                    <a href="job-details.html"><img src="assets/images/product-3-370x270.jpg" alt=""></a>-->
+<!--                    <div class="down-content">-->
+<!--                        <a href="job-details.html"><h4>Lorem ipsum dolor sit amet</h4></a>-->
 
+<!--                        <h6>$60 000</h6>-->
+
+<!--                        <h4><small><i class="fa fa-briefcase"></i> Medical / Health Jobs <br> <strong><i-->
+<!--                                class="fa fa-building"></i> BMI Kings Park Hospital</strong></small></h4>-->
+
+<!--                        <small>-->
+<!--                            <strong title="Posted on"><i class="fa fa-calendar"></i> 15-06-2020</strong> &nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--                            <strong title="Type"><i class="fa fa-file"></i> Contract</strong> &nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--                            <strong title="Location"><i class="fa fa-map-marker"></i> London</strong>-->
+<!--                        </small>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
 
         <!-- Load more -->
         <div class="flex-c-m flex-w w-full p-t-45">
-            <a href="{{ url_for('loadmore') }}" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+            <a href="{{ url_for('loadmore') }}"
+               class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
                 Load More
             </a>
         </div>
