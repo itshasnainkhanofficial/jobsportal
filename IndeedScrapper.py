@@ -81,14 +81,15 @@ class IndeedScrapper:
         # this fetches value of data-jk property of the top level tag. It is used to construct a url for details of
         # this job
         jk = rawJob.get('data-jk')
-        url = IndeedScrapper.getDetailsUrl(company, location, jk)
+        jobLink = IndeedScrapper.getDetailsUrl(company, location, jk)
 
         salary = IndeedScrapper.safeFindHtmlTag(rawJob, 'span', 'salaryText')
         requirements = IndeedScrapper.safeFindHtmlTag(rawJob, 'div', 'jobCardReqItem')
         summary = rawJob.find('div', 'summary').text.strip()
 
         return Job(title=title, company=company, location=location, salary=salary, requirement=requirements,
-                   summary=summary, jobType='', jobLink=url, vaccancies='', lastDate='', contact='', address='')
+                   summary=summary, jobType='', jobLink=jobLink, vaccancies='', lastDate='', contact='', address='',
+                   dataJk=jk)
 
     # find the text within an html tag if it exists.
     @staticmethod

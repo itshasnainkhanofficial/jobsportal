@@ -1,6 +1,6 @@
 class Job:
     def __init__(self, title, company, location, salary, requirement, summary, jobType, vaccancies, lastDate, contact,
-                 address, jobLink):
+                 address, jobLink, dataJk):
         self.title = title
         self.company = company
         self.location = location
@@ -13,3 +13,4 @@ class Job:
         self.contact = contact
         self.address = address
         self.jobLink = jobLink
+        self.dataJk = dataJk
