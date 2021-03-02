@@ -3355,3 +3355,6 @@ input.num-product::-webkit-inner-spin-button {
   margin-bottom: 15px;
   color: #121212;
 }
+html {
+  scroll-behavior: smooth;
+}
