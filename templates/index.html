@@ -192,7 +192,7 @@
             <div class="col-md-4 col-sm-6 mb-4">
                 <div class="card shadow rounded">
                     <div class="card-header">
-                        <h4><small><i class="fa fa-building"></i> {{job.company}}</small></h4>
+                        <h5><small><i class="fa fa-building"></i> {{job.company}}</small></h5>
                     </div>
                     <div class="card-body">
                       <h5 class="card-title">{{job.title}} 
@@ -215,13 +215,13 @@
                       </a>
                     </div>
                     <div class="card-footer">
-                        <h4><small>
+                        <h6><small>
                             {%if job.location %}
                             <i class="fa fa-map-marker"></i> {{job.location}}
                             {% else %}
                             <span>No Location found</span>
                             {%endif%}
-                        </small></h4>
+                        </small></h6>
                     </div>
                   </div>
                   <!-- modal -->
