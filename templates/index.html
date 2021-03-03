@@ -95,27 +95,63 @@
             </div>
         </div>
         {% for job in recentJobs %}
-        <div class="col-md-4">
-            <div class="product-item">
-                <div class="down-content">
-                    <a href="{{job.jobLink}}">
-                        <h4>{{job.title}}</h4>
-                    </a>
-
-
-                    <h6>{{job.salary}}</h6>
-
-                    <!--                    <h4><small><i class="fa fa-briefcase"></i> Medical / Health Jobs <br> <strong><i-->
-                    <!--                            class="fa fa-building"></i> {{job.company}}</strong></small></h4>-->
-                    <h4><small><strong><i class="fa fa-building"></i> {{job.company}}</strong></small></h4>
-
-                    <small>
-                        <!--                        <strong title="Posted on"><i class="fa fa-calendar"></i> 15-06-2020</strong> &nbsp;&nbsp;&nbsp;&nbsp;-->
-                        <strong title="Type"><i class="fa fa-file"></i> {{job.type}}</strong> &nbsp;&nbsp;&nbsp;&nbsp;
-                        <strong title="Location"><i class="fa fa-map-marker"></i> {{job.location}}</strong>
-                    </small>
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div class="card shadow rounded filterCard">
+                <div class="card-header">
+                    <h5><small><i class="fa fa-building"></i> {{job.company}}</small></h5>
                 </div>
-            </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{job.title}} 
+                    {% if job.type %}
+                    <small class="text-success">{{job.type}}</small>
+                    {%else%}
+                    <span></span>
+                    {%endif%}
+                  </h5>
+                  <p class="card-text">
+                    {% if job.salary %}
+                    <span class=""><i class="fa fa-money"></i> {{job.salary}}</span>
+                    {%else%}
+                    <span class="text-danger">No salary found</span>
+                    {%endif%}
+                  </p>
+                  <button data-toggle="modal" data-target="#modaldetailed{{job.dataJk}}" class="btn btn-outline-primary btn-sm mt-3">See Details</button>
+                  <a href="{{job.jobLink}}" target="blank" class="btn btn-outline-primary btn-sm mt-3">
+                    Get job
+                  </a>
+                </div>
+                <div class="card-footer">
+                    <h6><small>
+                        {%if job.location %}
+                        <i class="fa fa-map-marker"></i> {{job.location}}
+                        {% else %}
+                        <span>No Location found</span>
+                        {%endif%}
+                    </small></h6>
+                </div>
+              </div>
+              <!-- modal -->
+              <div class="modal fade" id="modaldetailed{{job.dataJk}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          {{job.company}}
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary"
+                              data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Save changes</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
         </div>
         {%endfor%}
 
