@@ -3358,3 +3358,13 @@ input.num-product::-webkit-inner-spin-button {
 html {
   scroll-behavior: smooth;
 }
+.filterCard{
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.4) !important;
+  transition: 0.5s;
+}
+.filterCard:hover{
+  box-shadow: 35px 31px 68px -5px rgba(0,0,0,0.27) !important;
+  /* transform: scale(1.2); */
+  z-index: 100;
+  cursor: pointer;
+}
